@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app.application.board import board
-from app.data.db.database import engine, Base
+from app.controller.board import board
+from app.mapper.db.database import engine, Base
 
 Base.metadata.create_all(bind=engine)
 

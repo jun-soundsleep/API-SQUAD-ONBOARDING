@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.data.db.database import get_db
-from app.data.models.user import User
+from app.mapper.db.database import get_db
+from app.mapper.models.user import User
 
 router = APIRouter(
     prefix="/board",
