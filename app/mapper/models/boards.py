@@ -6,8 +6,9 @@ from app.mapper.db.database import Base
 class Boards(Base):
     __tablename__ = "boards"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String)
     body = Column(Text)
-    password = Column(String)
     name = Column(String)
+    password = Column(String)
+

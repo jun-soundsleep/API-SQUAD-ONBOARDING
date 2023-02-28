@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
+from typing import Optional
+
+from fastapi import APIRouter, Depends, Query
 
 from app.mapper.db.database import get_db
-from app.mapper.models.user import User
 from app.mapper.repository.board.repository_board import BoardRepository
 from app.service.board.board_service import BoardService
+from app.service.board.dto.request.board import Board_create_request
 
 router = APIRouter(
     prefix="/board",
@@ -12,9 +13,33 @@ router = APIRouter(
     responses={404: {"description": "Not found"}}
 )
 
-board_service = BoardService(board_repository=BoardRepository(get_db()))
+
+@router.get("")
+def get_board_item(q: Optional[str] = Query(None, min_length=3), skip: int = 0, limit: int = 10, db=Depends(get_db)):
+    board_repository = BoardRepository(db)
+    board_service = BoardService(board_repository)
+    if q:
+        return board_service.search_board(q)
+
+    return board_service.get_board(skip=skip, limit=limit)
 
 
-@router.get('')
-def read_boards_all_item():
-    return board_service.get_all_boards()
+@router.post('')
+def create_board_item(item: Board_create_request, db=Depends(get_db)):
+    board_repository = BoardRepository(db)
+    board_service = BoardService(board_repository)
+
+    return board_service.create_board_item(item)
+
+
+@router.delete('')
+def delete_board_item(id: int, db=Depends(get_db)):
+    board_repository = BoardRepository(db)
+    board_service = BoardService(board_repository)
+
+    return board_service.delete_board(id)
+
+
+@router.patch('')
+def update_board_item(id: int):
+    pass
