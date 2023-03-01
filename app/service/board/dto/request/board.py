@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class Board_create_request(BaseModel):
+class BoardCreateRequest(BaseModel):
     id: Optional[int]
     title: str
     body: str
@@ -11,6 +11,14 @@ class Board_create_request(BaseModel):
     name: str
 
 
-class Board_skip_limit(BaseModel):
+class BoardSkipLimit(BaseModel):
     skip: int = 0
     limit: int = 10
+
+
+class BoardUpdateRequest(BaseModel):
+    id: int
+    password: str
+    title: Optional[str]
+    body: Optional[str]
+    name: Optional[str]

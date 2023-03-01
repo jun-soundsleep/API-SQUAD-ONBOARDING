@@ -1,5 +1,6 @@
 from app.mapper.models.boards import Boards
 from app.mapper.repository.board.repository_board import BoardRepository
+from app.service.board.dto.request.board import BoardUpdateRequest
 
 
 class BoardService:
@@ -34,6 +35,20 @@ class BoardService:
     def delete_board(self, id: int) -> bool:
         try:
             return self.board_repository.delete_board_item(id)
+
+        except Exception as e:
+            print(e)
+
+    def get_boards_item_by_id(self, id: int):
+        try:
+            return self.board_repository.get_boards_item_by_id(id)
+
+        except Exception as e:
+            print(e)
+
+    def update_boards_item(self, id: int, item: BoardUpdateRequest):
+        try:
+            return self.board_repository.update_board_item(id, item)
 
         except Exception as e:
             print(e)

@@ -1,11 +1,11 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
 
 from app.mapper.db.database import get_db
 from app.mapper.repository.board.repository_board import BoardRepository
 from app.service.board.board_service import BoardService
-from app.service.board.dto.request.board import Board_create_request
+from app.service.board.dto.request.board import BoardCreateRequest, BoardUpdateRequest
 
 router = APIRouter(
     prefix="/board",
@@ -25,7 +25,7 @@ def get_board_item(q: Optional[str] = Query(None, min_length=3), skip: int = 0, 
 
 
 @router.post('')
-def create_board_item(item: Board_create_request, db=Depends(get_db)):
+def create_board_item(item: BoardCreateRequest, db=Depends(get_db)):
     board_repository = BoardRepository(db)
     board_service = BoardService(board_repository)
 
@@ -41,5 +41,17 @@ def delete_board_item(id: int, db=Depends(get_db)):
 
 
 @router.patch('')
-def update_board_item(id: int):
-    pass
+def update_board_item(item: BoardUpdateRequest, db=Depends(get_db)):
+    board_repository = BoardRepository(db)
+    board_service = BoardService(board_repository)
+
+    data = board_service.get_boards_item_by_id(item.id)
+
+    if data is None:
+        raise HTTPException(status_code=404)
+
+    if data.password != item.password:
+        raise HTTPException(status_code=401)
+
+    return board_service.update_boards_item(item.id, item)
+

@@ -4,20 +4,17 @@ from sqlalchemy.orm import Session
 
 from app.mapper.models.boards import Boards
 from app.mapper.repository_interface.board.irepository_board import IBoardRepository
-from app.service.board.dto.request.board import Board_create_request
+from app.service.board.dto.request.board import BoardCreateRequest, BoardUpdateRequest
 
 
 class BoardRepository(IBoardRepository):
-
-
-
     def __init__(self, db: Session):
         self.db = db
 
     def get_boards(self, skip: int = 0, limit: int = 10) -> Optional[List[Boards]]:
         return self.db.query(Boards).offset(skip).limit(limit).all()
 
-    def create_boards_item(self, item: Board_create_request) -> bool:
+    def create_boards_item(self, item: BoardCreateRequest) -> bool:
         board = Boards(
             title=item.title,
             body=item.body,
@@ -40,5 +37,13 @@ class BoardRepository(IBoardRepository):
 
     def delete_board_item(self, id: int) -> bool:
         self.db.query(Boards).filter(Boards.id == id).delete()
+        self.db.commit()
+        return True
+
+    def get_boards_item_by_id(self, id: int) -> Boards:
+        return self.db.query(Boards).where(Boards.id == id).first()
+
+    def update_board_item(self, id: int, item: BoardUpdateRequest) -> bool:
+        self.db.query(Boards).where(Boards.id == id).update(item.dict())
         self.db.commit()
         return True

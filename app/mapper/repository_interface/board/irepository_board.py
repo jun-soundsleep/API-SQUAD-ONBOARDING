@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Optional
 
 from app.mapper.models.boards import Boards
-from app.service.board.dto.request.board import Board_create_request
+from app.service.board.dto.request.board import BoardCreateRequest, BoardUpdateRequest
 
 
 class IBoardRepository(ABC):
@@ -15,7 +15,7 @@ class IBoardRepository(ABC):
         pass
 
     @abstractmethod
-    def create_boards_item(self, item: Board_create_request) -> bool:
+    def create_boards_item(self, item: BoardCreateRequest) -> bool:
         pass
 
     @abstractmethod
@@ -31,6 +31,9 @@ class IBoardRepository(ABC):
         pass
 
     @abstractmethod
-    def update_board_item(self, id: int) -> bool:
+    def update_board_item(self, id: int, item: BoardUpdateRequest) -> bool:
         pass
 
+    @abstractmethod
+    def get_boards_item_by_id(self, id: int) -> Boards:
+        pass
