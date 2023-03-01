@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import List
 
 from app.mapper.models.boards import Boards
-from app.service.board.dto.request.board import BoardCreateRequest, BoardUpdateRequest
+from app.dto.request.board import BoardCreateRequest, BoardUpdateRequest
 
 
 class IBoardRepository(ABC):

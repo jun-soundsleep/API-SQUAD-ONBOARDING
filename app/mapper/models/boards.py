@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy.orm import relationship
 
 from app.mapper.db.database import Base
 
@@ -12,3 +13,4 @@ class Boards(Base):
     name = Column(String)
     password = Column(String)
 
+    comments = relationship("Comments", back_populates="board")

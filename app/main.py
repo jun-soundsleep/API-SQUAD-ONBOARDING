@@ -1,14 +1,13 @@
 from fastapi import FastAPI
 
 from app.controller.board import board
-from app.mapper.db.database import engine, Base
+from app.controller.comments import comments
 
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 app.include_router(board.router)
+app.include_router(comments.router)
 
 
 @app.get("/")
