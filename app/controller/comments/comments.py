@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from app.dto.request.comments import CommentsCreateRequest
+from app.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
 from app.service.comments.comments import CommentsService
 
 router = APIRouter(
@@ -11,8 +11,8 @@ router = APIRouter(
 
 
 @router.get("")
-def create_comment():
-    pass
+def read_comments(board_id: int, commentService: CommentsService = Depends()):
+    return commentService.read_comments(board_id)
 
 
 @router.post("")

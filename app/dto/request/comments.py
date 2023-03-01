@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import BaseModel
 
 
@@ -10,3 +8,7 @@ class Comments(BaseModel):
 
 class CommentsCreateRequest(Comments):
     pass
+
+
+class CommentsReadRequest(BaseModel):
+    board_id: int

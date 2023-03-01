@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from app.dto.request.comments import CommentsCreateRequest
+from app.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
+from app.mapper.models import Comments
 
 
 class ICommentsRepository(ABC):
@@ -9,5 +10,5 @@ class ICommentsRepository(ABC):
         pass
 
     @abstractmethod
-    def read_comments(self):
+    def read_comments(self, board_id: CommentsReadRequest) -> list[Comments]:
         pass
