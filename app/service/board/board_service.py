@@ -1,6 +1,6 @@
 from app.mapper.models.boards import Boards
 from app.mapper.repository.board.repository_board import BoardRepository
-from app.service.board.dto.request.board import BoardUpdateRequest
+from app.dto.request.board import BoardUpdateRequest
 
 
 class BoardService:

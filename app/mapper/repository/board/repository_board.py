@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.mapper.models.boards import Boards
 from app.mapper.repository_interface.board.irepository_board import IBoardRepository
-from app.service.board.dto.request.board import BoardCreateRequest, BoardUpdateRequest
+from app.dto.request.board import BoardCreateRequest, BoardUpdateRequest
 
 
 class BoardRepository(IBoardRepository):

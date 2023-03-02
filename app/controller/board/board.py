@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, Query, HTTPException
 from app.mapper.db.database import get_db
 from app.mapper.repository.board.repository_board import BoardRepository
 from app.service.board.board_service import BoardService
-from app.service.board.dto.request.board import BoardCreateRequest, BoardUpdateRequest
+from app.dto.request.board import BoardCreateRequest, BoardUpdateRequest
 
 router = APIRouter(
     prefix="/board",
