@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 
 class BoardCreateRequest(BaseModel):
-    id: Optional[int]
     title: str
     body: str
     password: str

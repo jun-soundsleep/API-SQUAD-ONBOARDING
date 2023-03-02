@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from app.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
+from app.domain.dto.request.comments import CommentsCreateRequest
 from app.service.comments.comments import CommentsService
 
 router = APIRouter(

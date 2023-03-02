@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
+from app.domain.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
 from app.mapper.models import Comments
 
 

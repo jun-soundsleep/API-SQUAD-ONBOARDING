@@ -5,7 +5,7 @@ from app.mapper.models import Boards
 from app.mapper.db.database import get_db
 from app.mapper.models import Comments
 from app.mapper.repository_interface.comments.irrepository_comments import ICommentsRepository
-from app.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
+from app.domain.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
 
 
 class CommentsRepository(ICommentsRepository):

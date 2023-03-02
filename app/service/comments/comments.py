@@ -1,6 +1,6 @@
 from fastapi import Depends
 
-from app.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
+from app.domain.dto.request.comments import CommentsCreateRequest, CommentsReadRequest
 from app.mapper.models import Comments
 from app.mapper.repository.comments.comments import CommentsRepository
 
