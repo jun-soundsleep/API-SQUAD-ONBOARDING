@@ -1,3 +1,4 @@
 .env
 sql_app.db
 .venv
+app.log
