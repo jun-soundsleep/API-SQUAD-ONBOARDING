@@ -4,3 +4,4 @@ sql_app.db
 app.log
 test.db
 .idea
+.testmondata
