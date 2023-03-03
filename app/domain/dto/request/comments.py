@@ -10,5 +10,3 @@ class CommentsCreateRequest(Comments):
     pass
 
 
-class CommentsReadRequest(BaseModel):
-    board_id: int
