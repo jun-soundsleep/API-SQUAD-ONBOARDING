@@ -1,17 +1,13 @@
-from app.mapper.models import boards
-from app.test.test_sql import client, delete_table
 from fastapi import status
 
 
-def test_root():
+def test_root(client):
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"Hello": "World"}
 
 
-def test_read_board():
-    delete_table(boards.Boards)
-
+def test_read_board(client, delete_board_table):
     test_data = {
         "title": "test_1",
         "body": "test_body",
@@ -53,3 +49,31 @@ def test_read_board():
     get_response_third = client.get(board_get_url)
     assert get_response_third.status_code == status.HTTP_200_OK
     assert len(get_response_third.json()) == 0
+
+
+def test_read_comment(client, delete_comment_table, create_comment_data_with_creating_board_data_ten_length):
+    response = client.get(f"/comment?board_id={create_comment_data_with_creating_board_data_ten_length}")
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.json()) == 10
+    assert response.json()[0]['board_id'] == create_comment_data_with_creating_board_data_ten_length
+
+
+def test_create_comment(client, delete_comment_table, delete_board_table, create_board_data_only_one):
+    board_get_url = '/board?skip=0&limit=10'
+
+    get_board_response = client.get(board_get_url)
+    assert get_board_response.status_code == status.HTTP_200_OK
+
+    board_id = get_board_response.json()[0]['id']
+    test_data = {
+        "content": "string",
+        "board_id": board_id
+    }
+
+    post_board_response = client.post("/comment", json=test_data)
+    assert post_board_response.status_code == status.HTTP_201_CREATED
+    assert post_board_response.json() == test_data
+
+    comment_read_response = client.get(f"/comment?board_id={test_data['board_id']}")
+    assert comment_read_response.status_code == status.HTTP_200_OK
+    assert comment_read_response.json()[0]['content'] == test_data['content']
