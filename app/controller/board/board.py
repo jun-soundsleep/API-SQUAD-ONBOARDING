@@ -34,12 +34,4 @@ def delete_board_item(id: int, board_service: BoardService = Depends()):
 
 @router.patch('', response_model=BoardUpdateResponse)
 def update_board_item(item: BoardUpdateRequest, board_service: BoardService = Depends()):
-    data = board_service.get_boards_item_by_id(item.id)
-
-    if data is None:
-        raise HTTPException(status_code=404)
-
-    if data.password != item.password:
-        raise HTTPException(status_code=401)
-
     return board_service.update_boards_item(item.id, item)
