@@ -1,2 +1,7 @@
 .env
 sql_app.db
+.venv
+app.log
+test.db
+.idea
+.testmondata

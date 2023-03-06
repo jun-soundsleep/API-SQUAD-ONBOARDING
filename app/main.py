@@ -1,15 +1,17 @@
 from fastapi import FastAPI
 
-from app.application.board import board
-from app.data.db.database import engine, Base
-
-Base.metadata.create_all(bind=engine)
+from app.controller.board import board
+from app.controller.comments import comments
+from app.log.logging import add_response_time_tracker
 
 app = FastAPI()
 
 app.include_router(board.router)
+app.include_router(comments.router)
+
+app.middleware("http")(add_response_time_tracker)
 
 
 @app.get("/")
-def main():
-    return {"main": "hi"}
+async def root():
+    return {"Hello": "World"}
