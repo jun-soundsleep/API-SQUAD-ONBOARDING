@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 
 from app.domain.dto.response.board import BoardReadResponse
 from app.mapper.repository.board.repository_board import BoardRepository
@@ -35,6 +35,14 @@ class BoardService:
         return self.board_repository.get_boards_item_by_id(id)
 
     def update_boards_item(self, id: int, item: BoardUpdateRequest):
+        data = self.get_boards_item_by_id(item.id)
+
+        if data is None:
+            raise HTTPException(status_code=404)
+
+        if data.password != item.password:
+            raise HTTPException(status_code=401)
+
         data = self.board_repository.update_board_item(id, item)
         delattr(data, "password")
         return data
